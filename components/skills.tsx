@@ -16,50 +16,114 @@ const Earth: React.FC = () => {
       0.1,
       1000
     );
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); // Enable alpha
-    renderer.setClearColor(0x000000, 0); // Set clear color to transparent
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setClearColor(0x000000, 0); // Transparent background
     renderer.setSize(window.innerWidth, window.innerHeight);
     mountRef.current.appendChild(renderer.domElement);
 
-    // Sphere Geometry (for reference, not visible)
-    const sphereGeometry = new THREE.SphereGeometry(5, 32, 32);
-
-    // Longitude Lines (North to South)
-    for (let i = 0; i <= 180; i += 10) {
+    // Function to generate points for a circle on the sphere
+    const generateCirclePoints = (radius, center, normal, segments = 64) => {
       const points = [];
-      for (let j = 0; j <= 180; j += 1) {
-        const theta = THREE.MathUtils.degToRad(i); // Longitude
-        const phi = THREE.MathUtils.degToRad(j); // Latitude
-        const x = 5 * Math.sin(phi) * Math.cos(theta);
-        const y = 5 * Math.cos(phi);
-        const z = 5 * Math.sin(phi) * Math.sin(theta);
-        points.push(new THREE.Vector3(x, y, z));
+      const axis = new THREE.Vector3(0, 1, 0); // Default axis for rotation
+      const quaternion = new THREE.Quaternion().setFromUnitVectors(
+        axis,
+        normal.clone().normalize()
+      );
+
+      for (let i = 0; i <= segments; i++) {
+        const angle = (i / segments) * Math.PI * 2;
+        const x = Math.cos(angle) * radius;
+        const y = Math.sin(angle) * radius;
+        const point = new THREE.Vector3(x, y, 0).applyQuaternion(quaternion).add(center);
+        points.push(point);
       }
+
+      return points;
+    };
+
+    // Define 12 primary colors
+    const primaryColors = [
+      0xff0000, // Red
+      0x00ff00, // Green
+      0x0000ff, // Blue
+      0xffff00, // Yellow
+      0xff00ff, // Magenta
+      0x00ffff, // Cyan
+      0xffa500, // Orange
+      0x800080, // Purple
+      0xff1493, // Deep Pink
+      0x7fff00, // Chartreuse
+      0x1e90ff, // Dodger Blue
+      0xff4500, // Orange Red
+    ];
+
+    // Define 15 random lines with 12 primary colors
+    const lines = [];
+
+    for (let i = 0; i < 15; i++) {
+      // Random normal vector for orientation
+      const normal = new THREE.Vector3(
+        Math.random() * 2 - 1,
+        Math.random() * 2 - 1,
+        Math.random() * 2 - 1
+      ).normalize();
+
+      // Assign a primary color (repeating if necessary)
+      const color = primaryColors[i % primaryColors.length];
+
+      const points = generateCirclePoints(5, new THREE.Vector3(0, 0, 0), normal); // Smaller radius of 5
       const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
-      const lineMaterial = new THREE.LineBasicMaterial({ color: 0x00ff00 }); // Green color
-      const line = new THREE.Line(lineGeometry, lineMaterial);
-      scene.add(line);
+      const lineMaterial = new THREE.LineBasicMaterial({ color });
+      const lineMesh = new THREE.Line(lineGeometry, lineMaterial);
+      scene.add(lineMesh);
     }
 
-    // Latitude Lines (West to East)
-    for (let i = 0; i <= 180; i += 10) {
-      const points = [];
-      for (let j = 0; j <= 360; j += 1) {
-        const theta = THREE.MathUtils.degToRad(j); // Longitude
-        const phi = THREE.MathUtils.degToRad(i); // Latitude
-        const x = 5 * Math.sin(phi) * Math.cos(theta);
-        const y = 5 * Math.cos(phi);
-        const z = 5 * Math.sin(phi) * Math.sin(theta);
-        points.push(new THREE.Vector3(x, y, z));
+    // Add a ground plane for the shadow
+    const groundGeometry = new THREE.PlaneGeometry(20, 20);
+    const groundMaterial = new THREE.MeshBasicMaterial({
+      color: 0xffffff, // White ground
+      side: THREE.DoubleSide,
+    });
+    const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+    ground.rotation.x = Math.PI / 2; // Rotate to lay flat
+    ground.position.y = -7; // Position below the sphere
+    scene.add(ground);
+
+    // Add a static shadow texture
+    const shadowTexture = new THREE.CanvasTexture(createShadowCanvas());
+    const shadowMaterial = new THREE.MeshBasicMaterial({
+      map: shadowTexture,
+      transparent: true,
+      opacity: 0.8, // Increased opacity for better visibility
+    });
+    const shadowGeometry = new THREE.PlaneGeometry(10, 10);
+    const shadowMesh = new THREE.Mesh(shadowGeometry, shadowMaterial);
+    shadowMesh.rotation.x = Math.PI / 2; // Rotate to lay flat
+    shadowMesh.position.y = -6.5; // Position slightly above the ground
+    scene.add(shadowMesh);
+
+    // Function to create a black and white shadow canvas
+    function createShadowCanvas() {
+      const canvas = document.createElement("canvas");
+      canvas.width = 256;
+      canvas.height = 256;
+      const context = canvas.getContext("2d");
+
+      if (context) {
+        const gradient = context.createRadialGradient(
+          128, 128, 0, 128, 128, 128
+        );
+        gradient.addColorStop(0, "rgba(0, 0, 0, 0.8)"); // Darker shadow
+        gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
+        context.fillStyle = gradient;
+        context.fillRect(0, 0, 256, 256);
       }
-      const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
-      const lineMaterial = new THREE.LineBasicMaterial({ color: 0xff0000 }); // Red color
-      const line = new THREE.Line(lineGeometry, lineMaterial);
-      scene.add(line);
+
+      return canvas;
     }
 
     // Camera Position
-    camera.position.z = 15;
+    camera.position.z = 10; 
 
     // Mouse Move Event Listener
     const handleMouseMove = (event: MouseEvent) => {
