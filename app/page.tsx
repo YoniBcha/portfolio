@@ -2,6 +2,14 @@
 
 import { motion, useAnimation } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import Earth from "@/components/skills";
+
+const skills = [
+  { name: "Flutter", icon: "@/assets/images/chess.jpg" },
+  { name: "React", icon: "@/assets/images/chess.jpg" },
+  { name: "Vue", icon: "@/assets/images/chess.jpg" },
+  { name: "Next.js", icon: "@/assets/images/chess.jpg" },
+];
 
 export default function Home() {
   const textControls = useAnimation();
@@ -65,14 +73,13 @@ export default function Home() {
 
   return (
     <main className="mx-2 md:mx-24">
-      {/* Conditionally render the header */}
       <motion.header
         initial={{ y: -100, opacity: 0 }}
         animate={
           isHeaderVisible ? { y: 0, opacity: 1 } : { y: -100, opacity: 0 }
         }
         transition={{ duration: 0.4, ease: "easeInOut" }}
-        className="fixed top-0 left-0 right-0 z-50 shadow-md h-20 flex items-center"
+        className="fixed top-0 left-[160px] right-[160px] z-50 shadow-md h-20 flex items-center"
         style={{
           background:
             "linear-gradient(to bottom, rgba(102, 126, 234, 1), rgba(118, 75, 162, 0))",
@@ -251,6 +258,52 @@ export default function Home() {
                 alt=""
               />
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section ref={homeSectionRef} className="h-screen ">
+        <div className="text-2xl font-bold text-center">Skills</div>
+        <div className="">
+          <Earth />
+        </div>
+        <div
+          style={{
+            padding: "40px",
+            textAlign: "center",
+            // backgroundColor: "#f0f0f0",
+          }}
+        >
+          <h1 style={{ fontSize: "2.5rem", marginBottom: "20px" }}>
+            My Skills
+          </h1>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: "40px",
+              flexWrap: "wrap",
+            }}
+          >
+            {skills.map((skill, index) => (
+              <div
+                key={index}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <img
+                  src={skill.icon}
+                  alt={skill.name}
+                  style={{ width: "80px", height: "80px" }}
+                />
+                <p style={{ marginTop: "10px", fontSize: "1.2rem" }}>
+                  {skill.name}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
