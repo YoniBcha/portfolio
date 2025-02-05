@@ -15,8 +15,8 @@ export default function Home() {
   const textControls = useAnimation();
   const textContainerRef = useRef<HTMLDivElement>(null);
   const textBlowUpControls = useAnimation();
-  const [isHeaderVisible, setIsHeaderVisible] = useState(false); // Track header visibility
-  const homeSectionRef = useRef<HTMLDivElement>(null); // Ref for the home section
+  const [isHeaderVisible, setIsHeaderVisible] = useState(false);
+  const homeSectionRef = useRef<HTMLDivElement>(null);
 
   const text = "My Name Is Yonas Million";
   const characters = text.split("");
@@ -262,49 +262,13 @@ export default function Home() {
         </div>
       </section>
 
-      <section ref={homeSectionRef} className="h-screen ">
+      <section
+        ref={homeSectionRef}
+        className="flex items-center h-screen mx-16 mt-10"
+      >
         <div className="text-2xl font-bold text-center">Skills</div>
-        <div className="">
+        <div className="flex ">
           <Earth />
-        </div>
-        <div
-          style={{
-            padding: "40px",
-            textAlign: "center",
-            // backgroundColor: "#f0f0f0",
-          }}
-        >
-          <h1 style={{ fontSize: "2.5rem", marginBottom: "20px" }}>
-            My Skills
-          </h1>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              gap: "40px",
-              flexWrap: "wrap",
-            }}
-          >
-            {skills.map((skill, index) => (
-              <div
-                key={index}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-              >
-                <img
-                  src={skill.icon}
-                  alt={skill.name}
-                  style={{ width: "80px", height: "80px" }}
-                />
-                <p style={{ marginTop: "10px", fontSize: "1.2rem" }}>
-                  {skill.name}
-                </p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
     </main>

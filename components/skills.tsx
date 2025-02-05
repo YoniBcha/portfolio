@@ -52,15 +52,15 @@ const Earth: React.FC = () => {
       const scale = 2; // Scaling factor for HD
       const textWidth = context.measureText(text).width;
       canvas.width = (textWidth + 20) * scale; // Add padding and scale
-      canvas.height = 30 * scale; // Fixed height and scale
+      canvas.height = 20 * scale; // Smaller height for smaller font
 
       // Scale context for HD rendering
       context.scale(scale, scale);
 
       // Draw text on canvas
       context.fillStyle = color; // Text color
-      context.font = "16px Arial"; // Larger font size for HD
-      context.fillText(text, 10, 20); // Position text
+      context.font = "12px Arial"; // Smaller font size
+      context.fillText(text, 10, 15); // Position text
 
       // Create texture from canvas
       const texture = new THREE.CanvasTexture(canvas);
@@ -81,27 +81,8 @@ const Earth: React.FC = () => {
       { name: "Java", color: "#007396" }, // Java Blue
     ];
 
-    // Define colors for the circles: Orange, Brown, Deep Green
-    const circleColors = [0xffa500, 0x8b4513, 0x006400]; // Orange, Brown, Deep Green
-
-    // Create 20 circles with the specified colors
-    for (let i = 0; i < 20; i++) {
-      // Random normal vector for orientation
-      const normal = new THREE.Vector3(
-        Math.random() * 2 - 1,
-        Math.random() * 2 - 1,
-        Math.random() * 2 - 1
-      ).normalize();
-
-      // Assign a color from the combination
-      const color = circleColors[i % circleColors.length];
-
-      const points = generateCirclePoints(5, new THREE.Vector3(0, 0, 0), normal); // Smaller radius of 5
-      const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
-      const lineMaterial = new THREE.LineBasicMaterial({ color });
-      const lineMesh = new THREE.Line(lineGeometry, lineMaterial);
-      scene.add(lineMesh);
-    }
+    // Define colors for the circles: Orange
+    const circleColors = [0xffa500]; // Orange
 
     // Create circles and text sprites for each skill
     const textSprites: THREE.Sprite[] = [];
@@ -113,9 +94,16 @@ const Earth: React.FC = () => {
 
       // Generate circle points
       const points = generateCirclePoints(5, new THREE.Vector3(0, 0, 0), normal);
-      const geometry = new THREE.BufferGeometry().setFromPoints(points);
-      const material = new THREE.LineBasicMaterial({ color: 0x000000 }); // Black circles
-      const circle = new THREE.Line(geometry, material);
+
+      // Create a filled circle (Mesh) instead of a line
+      const shape = new THREE.Shape();
+      shape.moveTo(points[0].x, points[0].y);
+      for (let i = 1; i < points.length; i++) {
+        shape.lineTo(points[i].x, points[i].y);
+      }
+      const geometry = new THREE.ShapeGeometry(shape);
+      const material = new THREE.MeshBasicMaterial({ color: circleColors[0] }); // Use orange color
+      const circle = new THREE.Mesh(geometry, material);
 
       // Create text sprite
       const textTexture = createTextTexture(skill.name, skill.color); // Skill-specific color
@@ -125,7 +113,7 @@ const Earth: React.FC = () => {
 
         // Position the sprite in front of the circle
         sprite.position.copy(normal.multiplyScalar(5.5)); // Adjust distance from the circle
-        sprite.scale.set(2, 1, 1); // Adjust size of the sprite
+        sprite.scale.set(1.5, 0.75, 1); // Smaller size for the sprite
 
         textSprites.push(sprite); // Store sprite for visibility checks
         scene.add(sprite);
