@@ -41,26 +41,51 @@ const Earth: React.FC = () => {
       return points;
     };
 
-    // Define 12 primary colors
-    const primaryColors = [
-      0xff0000, // Red
-      0x00ff00, // Green
-      0x0000ff, // Blue
-      0xffff00, // Yellow
-      0xff00ff, // Magenta
-      0x00ffff, // Cyan
-      0xffa500, // Orange
-      0x800080, // Purple
-      0xff1493, // Deep Pink
-      0x7fff00, // Chartreuse
-      0x1e90ff, // Dodger Blue
-      0xff4500, // Orange Red
+    // Function to create a canvas texture with text
+    const createTextTexture = (text: string, color: string) => {
+      const canvas = document.createElement("canvas");
+      const context = canvas.getContext("2d");
+
+      if (!context) return null;
+
+      // Increase canvas resolution for HD text
+      const scale = 2; // Scaling factor for HD
+      const textWidth = context.measureText(text).width;
+      canvas.width = (textWidth + 20) * scale; // Add padding and scale
+      canvas.height = 30 * scale; // Fixed height and scale
+
+      // Scale context for HD rendering
+      context.scale(scale, scale);
+
+      // Draw text on canvas
+      context.fillStyle = color; // Text color
+      context.font = "16px Arial"; // Larger font size for HD
+      context.fillText(text, 10, 20); // Position text
+
+      // Create texture from canvas
+      const texture = new THREE.CanvasTexture(canvas);
+      texture.needsUpdate = true;
+
+      return texture;
+    };
+
+    // Define skills and their primary colors
+    const skills = [
+      { name: "React", color: "#61dafb" }, // React Blue
+      { name: "React Native", color: "#61dafb" }, // React Blue
+      { name: "Next.js", color: "#000000" }, // Black
+      { name: "Vue.js", color: "#42b883" }, // Vue Green
+      { name: "Laravel", color: "#ff2d20" }, // Laravel Red
+      { name: "Django", color: "#092e20" }, // Django Green
+      { name: "Python", color: "#3776ab" }, // Python Blue
+      { name: "Java", color: "#007396" }, // Java Blue
     ];
 
-    // Define 15 random lines with 12 primary colors
-    const lines = [];
+    // Define colors for the circles: Orange, Brown, Deep Green
+    const circleColors = [0xffa500, 0x8b4513, 0x006400]; // Orange, Brown, Deep Green
 
-    for (let i = 0; i < 15; i++) {
+    // Create 20 circles with the specified colors
+    for (let i = 0; i < 20; i++) {
       // Random normal vector for orientation
       const normal = new THREE.Vector3(
         Math.random() * 2 - 1,
@@ -68,8 +93,8 @@ const Earth: React.FC = () => {
         Math.random() * 2 - 1
       ).normalize();
 
-      // Assign a primary color (repeating if necessary)
-      const color = primaryColors[i % primaryColors.length];
+      // Assign a color from the combination
+      const color = circleColors[i % circleColors.length];
 
       const points = generateCirclePoints(5, new THREE.Vector3(0, 0, 0), normal); // Smaller radius of 5
       const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
@@ -78,52 +103,40 @@ const Earth: React.FC = () => {
       scene.add(lineMesh);
     }
 
-    // Add a ground plane for the shadow
-    const groundGeometry = new THREE.PlaneGeometry(20, 20);
-    const groundMaterial = new THREE.MeshBasicMaterial({
-      color: 0xffffff, // White ground
-      side: THREE.DoubleSide,
-    });
-    const ground = new THREE.Mesh(groundGeometry, groundMaterial);
-    ground.rotation.x = Math.PI / 2; // Rotate to lay flat
-    ground.position.y = -7; // Position below the sphere
-    scene.add(ground);
+    // Create circles and text sprites for each skill
+    const textSprites: THREE.Sprite[] = [];
 
-    // Add a static shadow texture
-    const shadowTexture = new THREE.CanvasTexture(createShadowCanvas());
-    const shadowMaterial = new THREE.MeshBasicMaterial({
-      map: shadowTexture,
-      transparent: true,
-      opacity: 0.8, // Increased opacity for better visibility
-    });
-    const shadowGeometry = new THREE.PlaneGeometry(10, 10);
-    const shadowMesh = new THREE.Mesh(shadowGeometry, shadowMaterial);
-    shadowMesh.rotation.x = Math.PI / 2; // Rotate to lay flat
-    shadowMesh.position.y = -6.5; // Position slightly above the ground
-    scene.add(shadowMesh);
+    skills.forEach((skill, index) => {
+      // Calculate normal vector for the circle's orientation
+      const angle = (index / skills.length) * Math.PI * 2;
+      const normal = new THREE.Vector3(Math.cos(angle), Math.sin(angle), 0).normalize();
 
-    // Function to create a black and white shadow canvas
-    function createShadowCanvas() {
-      const canvas = document.createElement("canvas");
-      canvas.width = 256;
-      canvas.height = 256;
-      const context = canvas.getContext("2d");
+      // Generate circle points
+      const points = generateCirclePoints(5, new THREE.Vector3(0, 0, 0), normal);
+      const geometry = new THREE.BufferGeometry().setFromPoints(points);
+      const material = new THREE.LineBasicMaterial({ color: 0x000000 }); // Black circles
+      const circle = new THREE.Line(geometry, material);
 
-      if (context) {
-        const gradient = context.createRadialGradient(
-          128, 128, 0, 128, 128, 128
-        );
-        gradient.addColorStop(0, "rgba(0, 0, 0, 0.8)"); // Darker shadow
-        gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
-        context.fillStyle = gradient;
-        context.fillRect(0, 0, 256, 256);
+      // Create text sprite
+      const textTexture = createTextTexture(skill.name, skill.color); // Skill-specific color
+      if (textTexture) {
+        const spriteMaterial = new THREE.SpriteMaterial({ map: textTexture });
+        const sprite = new THREE.Sprite(spriteMaterial);
+
+        // Position the sprite in front of the circle
+        sprite.position.copy(normal.multiplyScalar(5.5)); // Adjust distance from the circle
+        sprite.scale.set(2, 1, 1); // Adjust size of the sprite
+
+        textSprites.push(sprite); // Store sprite for visibility checks
+        scene.add(sprite);
       }
 
-      return canvas;
-    }
+      // Add the circle to the scene
+      scene.add(circle);
+    });
 
     // Camera Position
-    camera.position.z = 10; 
+    camera.position.z = 10;
 
     // Mouse Move Event Listener
     const handleMouseMove = (event: MouseEvent) => {
@@ -142,6 +155,19 @@ const Earth: React.FC = () => {
       // Rotate Scene based on mouse position
       scene.rotation.y = mousePosition.x * Math.PI; // Rotate around Y-axis
       scene.rotation.x = mousePosition.y * Math.PI; // Rotate around X-axis
+
+      // Check visibility of text sprites
+      textSprites.forEach((sprite) => {
+        const vector = sprite.position.clone().project(camera);
+        const isVisible =
+          vector.x >= -1 &&
+          vector.x <= 1 &&
+          vector.y >= -1 &&
+          vector.y <= 1 &&
+          vector.z >= -1 &&
+          vector.z <= 1;
+        sprite.visible = isVisible;
+      });
 
       renderer.render(scene, camera);
     };
