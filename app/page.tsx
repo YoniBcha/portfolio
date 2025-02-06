@@ -163,9 +163,9 @@ export default function Home() {
         />
         <path
           fill="url(#fluentColorHome162)"
-          fill-rule="evenodd"
+          fillRule="evenodd"
           d="m8.004 2.636l5.731 5.41a.75.75 0 1 0 1.03-1.091L8.86 1.382a1.25 1.25 0 0 0-1.724.007L1.23 7.059a.75.75 0 0 0 1.038 1.082z"
-          clip-rule="evenodd"
+          clipRule="evenodd"
         />
         <defs>
           <linearGradient
@@ -176,8 +176,8 @@ export default function Home() {
             y2="14.698"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color="#944600" />
-            <stop offset="1" stop-color="#cd8e02" />
+            <stop stopColor="#944600" />
+            <stop offset="1" stopColor="#cd8e02" />
           </linearGradient>
           <linearGradient
             id="fluentColorHome161"
@@ -187,8 +187,8 @@ export default function Home() {
             y2="10.981"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color="#ffd394" />
-            <stop offset="1" stop-color="#ffb357" />
+            <stop stopColor="#ffd394" />
+            <stop offset="1" stopColor="#ffb357" />
           </linearGradient>
           <linearGradient
             id="fluentColorHome162"
@@ -198,8 +198,8 @@ export default function Home() {
             y2="7.895"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color="#ff921f" />
-            <stop offset="1" stop-color="#eb4824" />
+            <stop stopColor="#ff921f" />
+            <stop offset="1" stopColor="#eb4824" />
           </linearGradient>
         </defs>
       </g>
@@ -364,8 +364,8 @@ export default function Home() {
         gradientTransform="matrix(1 0 0 .4912 -12.275 94.62)"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset=".728" stop-color="#795548" stop-opacity="0" />
-        <stop offset="1" stop-color="#795548" />
+        <stop offset=".728" stopColor="#795548" stopOpacity="0" />
+        <stop offset="1" stopColor="#795548" />
       </radialGradient>
       <path
         fill="url(#notoPerson0)"
@@ -379,8 +379,8 @@ export default function Home() {
         gradientTransform="matrix(-.9057 .4238 -.3144 -.6719 180.533 91.517)"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset=".663" stop-color="#795548" />
-        <stop offset="1" stop-color="#795548" stop-opacity="0" />
+        <stop offset=".663" stopColor="#795548" />
+        <stop offset="1" stopColor="#795548" stopOpacity="0" />
       </radialGradient>
       <path
         fill="url(#notoPerson1)"
@@ -394,8 +394,8 @@ export default function Home() {
         gradientTransform="matrix(-.0746 -.9972 .8311 -.0622 52.718 167.2)"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset=".725" stop-color="#795548" stop-opacity="0" />
-        <stop offset="1" stop-color="#795548" />
+        <stop offset=".725" stopColor="#795548" stopOpacity="0" />
+        <stop offset="1" stopColor="#795548" />
       </radialGradient>
       <path
         fill="url(#notoPerson2)"
@@ -409,8 +409,8 @@ export default function Home() {
         gradientTransform="matrix(.0746 -.9972 -.8311 -.0622 79.056 117.148)"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset=".725" stop-color="#795548" stop-opacity="0" />
-        <stop offset="1" stop-color="#795548" />
+        <stop offset=".725" stopColor="#795548" stopOpacity="0" />
+        <stop offset="1" stopColor="#795548" />
       </radialGradient>
       <path
         fill="url(#notoPerson3)"
@@ -424,8 +424,8 @@ export default function Home() {
         gradientTransform="matrix(-1 0 0 .4912 90.112 94.62)"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset=".728" stop-color="#795548" stop-opacity="0" />
-        <stop offset="1" stop-color="#795548" />
+        <stop offset=".728" stopColor="#795548" stopOpacity="0" />
+        <stop offset="1" stopColor="#795548" />
       </radialGradient>
       <path
         fill="url(#notoPerson4)"
@@ -439,8 +439,8 @@ export default function Home() {
         gradientTransform="matrix(.9057 .4238 .3144 -.6719 -7.043 112.79)"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset=".663" stop-color="#795548" />
-        <stop offset="1" stop-color="#795548" stop-opacity="0" />
+        <stop offset=".663" stopColor="#795548" />
+        <stop offset="1" stopColor="#795548" stopOpacity="0" />
       </radialGradient>
       <path
         fill="url(#notoPerson5)"
@@ -482,8 +482,8 @@ export default function Home() {
         gradientTransform="matrix(.3076 .9515 .706 -.2282 8.83 -11.739)"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset=".699" stop-color="#795548" stop-opacity="0" />
-        <stop offset="1" stop-color="#795548" />
+        <stop offset=".699" stopColor="#795548" stopOpacity="0" />
+        <stop offset="1" stopColor="#795548" />
       </radialGradient>
       <path
         fill="url(#notoPerson6)"
@@ -497,8 +497,8 @@ export default function Home() {
         gradientTransform="matrix(.8813 .4726 .5603 -1.045 -64.35 113.606)"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset=".58" stop-color="#795548" />
-        <stop offset="1" stop-color="#795548" stop-opacity="0" />
+        <stop offset=".58" stopColor="#795548" />
+        <stop offset="1" stopColor="#795548" stopOpacity="0" />
       </radialGradient>
       <path
         fill="url(#notoPerson7)"
@@ -512,8 +512,8 @@ export default function Home() {
         gradientTransform="matrix(-.9378 -.3944 -.2182 .5285 237.25 55.895)"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset=".699" stop-color="#795548" stop-opacity="0" />
-        <stop offset="1" stop-color="#795548" />
+        <stop offset=".699" stopColor="#795548" stopOpacity="0" />
+        <stop offset="1" stopColor="#795548" />
       </radialGradient>
       <path
         fill="url(#notoPerson8)"
@@ -527,8 +527,8 @@ export default function Home() {
         gradientTransform="matrix(1 0 0 -1.2233 0 153.168)"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset=".702" stop-color="#795548" stop-opacity="0" />
-        <stop offset="1" stop-color="#795548" />
+        <stop offset=".702" stopColor="#795548" stopOpacity="0" />
+        <stop offset="1" stopColor="#795548" />
       </radialGradient>
       <path
         fill="url(#notoPerson9)"
@@ -542,8 +542,8 @@ export default function Home() {
         gradientTransform="matrix(-.9657 -.2598 -.2432 .9037 93.055 -39.766)"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset=".66" stop-color="#795548" stop-opacity="0" />
-        <stop offset="1" stop-color="#795548" />
+        <stop offset=".66" stopColor="#795548" stopOpacity="0" />
+        <stop offset="1" stopColor="#795548" />
       </radialGradient>
       <path
         fill="url(#notoPersona)"
@@ -557,8 +557,8 @@ export default function Home() {
         gradientTransform="matrix(.9907 .1363 .1915 -1.3921 -13.653 152.342)"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset=".598" stop-color="#795548" stop-opacity="0" />
-        <stop offset="1" stop-color="#795548" />
+        <stop offset=".598" stopColor="#795548" stopOpacity="0" />
+        <stop offset="1" stopColor="#795548" />
       </radialGradient>
       <path
         fill="url(#notoPersonb)"
@@ -598,7 +598,7 @@ export default function Home() {
 
   return (
     <main className="">
-      <section className="h-screen my-5 mx-3 md:mx-20 py-20">
+      <section className="flex h-screen my-5 mx-3 md:mx-20 py-20">
         <div
           className={`sm:hidden md:block h-[90%] rounded-xl shadow-2xl p-2 ${
             isNavExtended ? "w-14 " : "w-48"
@@ -627,7 +627,7 @@ export default function Home() {
                 </clipPath>
                 <g
                   fill="#faa700"
-                  clip-path="url(#notoBackhandIndexPointingRight1)"
+                  clipPath="url(#notoBackhandIndexPointingRight1)"
                 >
                   <path d="M73.3 59.5c.1 1.6 2.8 2.9 2.8 6.4c0 3.7-3 4.7-3.1 7.5c-.1 2.7 2 3.8 1.5 7.7c-.6 4.5-4.1 4-4.2 7.1c0 2.7 1.8 3.2 1.8 6.6c0 3.1-3 5.8-5.5 7s-1.2 3.4 0 3.4s11.9-1.3 14.5-8.2c3-8 11-29.6 8.8-36.9c-7.1-1-11.5-1.6-13.7-1.8c-.7-.1-2.9-.6-2.9 1.2M60.1 40.7c0 .9.1 1.5 1 1.5c1 0 43.6 2.1 51.6 2.3c9.2.2 8.7 7.6 5.9 10.1c-1.9 1.7.6 4 2.2 2.6s4.4-3.4 4.3-8.4s-4.4-8.6-8.4-8.9c-3.8-.3-56.6.8-56.6.8m-51.9 21c15.9 0 14.1-11.7 25.2-18.9c15.4-10.1 16.3-11.1 19.7-25.2c1.2-4.9 5.7-4.4 7.7-2.1s4.9-1.3 3.6-2.7s-7.8-7.7-14.8-1.1s-42 46.2-42 46.2z" />
                 </g>
@@ -642,7 +642,7 @@ export default function Home() {
                 </clipPath>
                 <g
                   fill="#b55e19"
-                  clip-path="url(#notoBackhandIndexPointingRight3)"
+                  clipPath="url(#notoBackhandIndexPointingRight3)"
                 >
                   <path d="M58.7 41.1h-1.9c-.4 0-.8-.4-.2-1.3s5.8-8 5.8-15c0-3.2-.5-7.7-3.4-12.4c-.6-.9.2-1.4.9-1c.7.5 6.4 3.2 6.5 13.4s-7.7 16.3-7.7 16.3m65.1 8.8c-.5 0-1.1-.2-1.7 1c-.7 1.5-3.1 4.4-8.4 4.7s-38.1 2.5-38.9 2.5c-1.1 0-1.2 1.9.1 1.8c1.7-.1 7.2-.2 7.2-.2s30.9 1.8 36.9-.6c6.1-2.4 4.8-9.2 4.8-9.2M86.6 68.5c-.3-.1-.7-.1-1 .3c-1.5 2-4.6 3.5-10.6 3.3c-1.4 0-1.6 2.7.1 2.7c.7 0 4-.1 4-.1l6.6-.2zm-3.6 15c-.3-.1-.7-.1-1.1.4c-1.5 2-3.5 2.8-9.7 3c-1.5.1-1.4 2.6.2 2.6c1.1 0 2.4-.1 2.4-.1l7-.6zm-5.4 12.7c-.3-.1-.8-.2-1.2.4c-.8 1.1-2.9 3-7.5 4.4c-3.7 1.1-21.3 1.9-32.5-.7c-2.3-.5-9.9-3-13.6-5.3s-7.3-1.6-8.3-1.4s-6.3.7-6.3.7l2.5 3.7l27 8.6l38.5-.6z" />
                 </g>
@@ -669,7 +669,7 @@ export default function Home() {
                 </clipPath>
                 <g
                   fill="#faa700"
-                  clip-path="url(#notoBackhandIndexPointingLeft1)"
+                  clipPath="url(#notoBackhandIndexPointingLeft1)"
                 >
                   <path d="M58.1 59.5c-.1 1.6-2.8 2.9-2.8 6.4c0 3.7 3 4.7 3.1 7.5c.1 2.7-2 3.8-1.5 7.7c.6 4.5 4.1 4 4.2 7.1c0 2.7-1.8 3.2-1.8 6.6c0 3.1 3 5.8 5.5 7s1.2 3.4 0 3.4s-11.9-1.3-14.5-8.2c-3-8-11-29.6-8.8-36.9c7.1-1 11.5-1.6 13.7-1.8c.8-.1 3-.6 2.9 1.2m13.3-18.8c0 .9-.1 1.5-1 1.5s-43.6 2.1-51.6 2.3c-9.2.2-8.7 7.6-5.9 10.1c1.9 1.7-.6 4-2.2 2.6s-4.4-3.4-4.3-8.4s4.4-8.6 8.4-8.9c3.8-.3 56.6.8 56.6.8m51.9 21c-15.9 0-14.1-11.7-25.2-18.9c-15.3-10.1-16.2-11.1-19.7-25.3c-1.2-4.9-5.7-4.4-7.7-2.1s-4.9-1.3-3.6-2.7s7.8-7.7 14.8-1.1s42 46.2 42 46.2z" />
                 </g>
@@ -684,7 +684,7 @@ export default function Home() {
                 </clipPath>
                 <g
                   fill="#b55e19"
-                  clip-path="url(#notoBackhandIndexPointingLeft3)"
+                  clipPath="url(#notoBackhandIndexPointingLeft3)"
                 >
                   <path d="M72.8 41.1h1.9c.4 0 .8-.4.2-1.3s-5.8-8-5.8-15c0-3.2.5-7.7 3.4-12.4c.6-.9-.2-1.4-.9-1c-.7.5-6.4 3.2-6.5 13.4s7.7 16.3 7.7 16.3M7.6 49.9c.5 0 1.1-.2 1.7 1c.7 1.5 3.1 4.4 8.4 4.7s38.1 2.5 38.9 2.5c1.1 0 1.2 1.9-.1 1.8c-1.7-.1-7.2-.2-7.2-.2s-30.9 1.8-36.9-.6s-4.8-9.2-4.8-9.2m37.3 18.6c.3-.1.7-.1 1 .3c1.5 2 4.6 3.5 10.6 3.3c1.4 0 1.6 2.7-.1 2.7c-.7 0-4-.1-4-.1l-6.6-.2zm3.5 15c.3-.1.7-.1 1.1.4c1.5 2 3.5 2.8 9.7 3c1.5.1 1.4 2.6-.2 2.6c-1.1 0-2.4-.1-2.4-.1l-7-.6zm5.5 12.7c.3-.1.8-.2 1.2.4c.8 1.1 2.9 3 7.5 4.4c3.7 1.1 21.3 1.9 32.5-.7c2.3-.5 9.9-3 13.6-5.3s7.3-1.6 8.3-1.4s6.3.7 6.3.7l-2.5 3.7l-27 8.6l-38.5-.6z" />
                 </g>
@@ -703,6 +703,47 @@ export default function Home() {
               </a>
             ))}
           </div>
+        </div>
+
+        <div className="flex-1 flex flex-col justify-center mt-24">
+          <motion.div
+            className="mt-14 pl-28 text-3xl"
+            initial={{ scale: 0, opacity: 0 }}
+            animate={textBlowUpControls}
+          >
+            I am a software engineer and graphics designer
+          </motion.div>
+          <div
+            className="flex pl-16 mt-5 h-80 whitespace-nowrap"
+            ref={textContainerRef}
+          >
+            {characters.map((char, index) => (
+              <motion.span
+                key={index}
+                custom={index}
+                initial={{ x: 0, y: "-100vh", opacity: 0, rotate: -360 }}
+                animate={textControls}
+                className="text-5xl text-[#f46921] font-bold"
+              >
+                {char}
+              </motion.span>
+            ))}
+          </div>
+          <div className="pl-28 text-sm">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos,
+            consequatur sequi id enim distinctio ad maxime fuga voluptas
+            eligendi? Beatae quasi at molestias vitae ipsum dolorem corrupti,
+            rerum vel quo.
+          </div>
+        </div>
+        <div className="relative flex-1 h-[400px] w-[400px] rounded-full overflow-hidden ml-40">
+          <Image
+            src="/yo.jpg"
+            alt="profile image"
+            layout="fill"
+            objectFit="cover"
+            // className="rounded-full"
+          />
         </div>
       </section>
 
