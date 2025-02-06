@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useAnimation } from "framer-motion";
+import { motion, useAnimation, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Earth from "@/components/skills";
 
@@ -11,12 +11,43 @@ const skills = [
   { name: "Next.js", icon: "@/assets/images/chess.jpg" },
 ];
 
+const cardData = [
+  { title: "Card Title 1", description: "This is a description for card 1.", height: "h-80" },
+  { title: "Card Title 2", description: "This is a description for card 2.", height: "h-60" },
+  { title: "Card Title 3", description: "This is a description for card 3.", height: "h-40" },
+  { title: "Card Title 4", description: "This is a description for card 4.", height: "h-72" },
+  { title: "Card Title 5", description: "This is a description for card 5.", height: "h-64" },
+  { title: "Card Title 6", description: "This is a description for card 6.", height: "h-56" },
+  { title: "Card Title 7", description: "This is a description for card 7.", height: "h-48" },
+  { title: "Card Title 8", description: "This is a description for card 8.", height: "h-80" },
+  { title: "Card Title 9", description: "This is a description for card 9.", height: "h-60" },
+  { title: "Card Title 10", description: "This is a description for card 10.", height: "h-72" },
+  { title: "Card Title 11", description: "This is a description for card 11.", height: "h-64" },
+  { title: "Card Title 12", description: "This is a description for card 12.", height: "h-56" },
+];
+
+const MasonryCard = ({ title, description, height, controls, isInView }) => {
+  return (
+    <motion.div
+      className={`bg-white rounded-lg shadow-md p-4 ${height}`}
+      initial={{ opacity: 0, x: controls === "left" ? -100 : 100 }}
+      animate={isInView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
+      <h3 className="text-lg font-semibold">{title}</h3>
+      <p className="text-sm text-gray-600">{description}</p>
+    </motion.div>
+  );
+};
+
 export default function Home() {
   const textControls = useAnimation();
   const textContainerRef = useRef<HTMLDivElement>(null);
   const textBlowUpControls = useAnimation();
   const [isHeaderVisible, setIsHeaderVisible] = useState(false);
   const homeSectionRef = useRef<HTMLDivElement>(null);
+  const projectSectionRef = useRef<HTMLDivElement>(null);
+  const isProjectInView = useInView(projectSectionRef, { once: true, margin: "-100px" }); // Adjust margin as needed
 
   const text = "My Name Is Yonas Million";
   const characters = text.split("");
@@ -55,10 +86,9 @@ export default function Home() {
   useEffect(() => {
     const handleScroll = () => {
       if (homeSectionRef.current) {
-        const homeSectionHeight = homeSectionRef.current.offsetHeight; // Height of the home section
-        const scrollY = window.scrollY; // Current scroll position
+        const homeSectionHeight = homeSectionRef.current.offsetHeight;
+        const scrollY = window.scrollY;
 
-        // Show header only if the user has scrolled past the home section
         if (scrollY > homeSectionHeight) {
           setIsHeaderVisible(true);
         } else {
@@ -163,102 +193,23 @@ export default function Home() {
         <div className="flex-1"></div>
       </section>
 
-      {/* Project Section */}
-      <section className="flex flex-col gap-10 mx-16 -mt-5">
+      <section ref={projectSectionRef} className="flex flex-col gap-10 mx-16 -mt-5">
         <div className="text-2xl font-bold text-center">Projects</div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="grid gap-4">
-            <div>
-              <img
-                className="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg"
-                alt=""
-              />
+          {[0, 1, 2, 3].map((col) => (
+            <div key={col} className="grid gap-4">
+              {cardData
+                .filter((_, index) => index % 4 === col)
+                .map((card, index) => (
+                  <MasonryCard
+                    key={index}
+                    {...card}
+                    controls={col % 2 === 0 ? "left" : "right"}
+                    isInView={isProjectInView} // Pass the isInView state to each card
+                  />
+                ))}
             </div>
-            <div>
-              <img
-                className="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg"
-                alt=""
-              />
-            </div>
-            <div>
-              <img
-                className="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg"
-                alt=""
-              />
-            </div>
-          </div>
-          <div className="grid gap-4">
-            <div>
-              <img
-                className="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg"
-                alt=""
-              />
-            </div>
-            <div>
-              <img
-                className="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg"
-                alt=""
-              />
-            </div>
-            <div>
-              <img
-                className="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg"
-                alt=""
-              />
-            </div>
-          </div>
-          <div className="grid gap-4">
-            <div>
-              <img
-                className="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg"
-                alt=""
-              />
-            </div>
-            <div>
-              <img
-                className="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg"
-                alt=""
-              />
-            </div>
-            <div>
-              <img
-                className="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg"
-                alt=""
-              />
-            </div>
-          </div>
-          <div className="grid gap-4">
-            <div>
-              <img
-                className="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg"
-                alt=""
-              />
-            </div>
-            <div>
-              <img
-                className="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-10.jpg"
-                alt=""
-              />
-            </div>
-            <div>
-              <img
-                className="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-11.jpg"
-                alt=""
-              />
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
