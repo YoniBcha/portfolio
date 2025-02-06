@@ -3,27 +3,69 @@
 import { motion, useAnimation, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Earth from "@/components/skills";
-
-const skills = [
-  { name: "Flutter", icon: "@/assets/images/chess.jpg" },
-  { name: "React", icon: "@/assets/images/chess.jpg" },
-  { name: "Vue", icon: "@/assets/images/chess.jpg" },
-  { name: "Next.js", icon: "@/assets/images/chess.jpg" },
-];
+import Image from "next/image";
 
 const cardData = [
-  { title: "Card Title 1", description: "This is a description for card 1.", height: "h-80" },
-  { title: "Card Title 2", description: "This is a description for card 2.", height: "h-60" },
-  { title: "Card Title 3", description: "This is a description for card 3.", height: "h-40" },
-  { title: "Card Title 4", description: "This is a description for card 4.", height: "h-72" },
-  { title: "Card Title 5", description: "This is a description for card 5.", height: "h-64" },
-  { title: "Card Title 6", description: "This is a description for card 6.", height: "h-56" },
-  { title: "Card Title 7", description: "This is a description for card 7.", height: "h-48" },
-  { title: "Card Title 8", description: "This is a description for card 8.", height: "h-80" },
-  { title: "Card Title 9", description: "This is a description for card 9.", height: "h-60" },
-  { title: "Card Title 10", description: "This is a description for card 10.", height: "h-72" },
-  { title: "Card Title 11", description: "This is a description for card 11.", height: "h-64" },
-  { title: "Card Title 12", description: "This is a description for card 12.", height: "h-56" },
+  {
+    title: "Card Title 1",
+    description: "This is a description for card 1.",
+    height: "h-80",
+  },
+  {
+    title: "Card Title 2",
+    description: "This is a description for card 2.",
+    height: "h-60",
+  },
+  {
+    title: "Card Title 3",
+    description: "This is a description for card 3.",
+    height: "h-40",
+  },
+  {
+    title: "Card Title 4",
+    description: "This is a description for card 4.",
+    height: "h-72",
+  },
+  {
+    title: "Card Title 5",
+    description: "This is a description for card 5.",
+    height: "h-64",
+  },
+  {
+    title: "Card Title 6",
+    description: "This is a description for card 6.",
+    height: "h-56",
+  },
+  {
+    title: "Card Title 7",
+    description: "This is a description for card 7.",
+    height: "h-48",
+  },
+  {
+    title: "Card Title 8",
+    description: "This is a description for card 8.",
+    height: "h-80",
+  },
+  {
+    title: "Card Title 9",
+    description: "This is a description for card 9.",
+    height: "h-60",
+  },
+  {
+    title: "Card Title 10",
+    description: "This is a description for card 10.",
+    height: "h-72",
+  },
+  {
+    title: "Card Title 11",
+    description: "This is a description for card 11.",
+    height: "h-64",
+  },
+  {
+    title: "Card Title 12",
+    description: "This is a description for card 12.",
+    height: "h-56",
+  },
 ];
 
 const MasonryCard = ({ title, description, height, controls, isInView }) => {
@@ -47,7 +89,10 @@ export default function Home() {
   const [isHeaderVisible, setIsHeaderVisible] = useState(false);
   const homeSectionRef = useRef<HTMLDivElement>(null);
   const projectSectionRef = useRef<HTMLDivElement>(null);
-  const isProjectInView = useInView(projectSectionRef, { once: true, margin: "-100px" }); // Adjust margin as needed
+  const isProjectInView = useInView(projectSectionRef, {
+    once: true,
+    margin: "-100px",
+  }); // Adjust margin as needed
 
   const text = "My Name Is Yonas Million";
   const characters = text.split("");
@@ -133,13 +178,13 @@ export default function Home() {
         </nav>
       </motion.header>
 
-      <section ref={homeSectionRef} className="h-screen ">
+      <section ref={homeSectionRef} className="h-screen relative">
         <div className="flex justify-end mt-10">
           <div className="flex items-center justify-center h-12 w-12 rounded-full bg-gray-500"></div>
         </div>
-        <div className="flex relative overflow-visible mt-20">
+        <div className="flex items-center relative overflow-visible pt-28">
           <div className="">
-            <div className="absolute left-1/2 top-[28%] transform -translate-y-1/4">
+            <div className="absolute left-1/2 top-[40%] transform -translate-x-1/2 -translate-y-1/4">
               {[
                 "Home",
                 "Project",
@@ -165,14 +210,14 @@ export default function Home() {
               ))}
             </div>
             <motion.div
-              className="mt-14  ml-20 text-3xl"
+              className="mt-14 ml-20 text-3xl"
               initial={{ scale: 0, opacity: 0 }}
               animate={textBlowUpControls}
             >
-              I am software engineer and graphics designer
-            </motion.div>{" "}
+              I am a software engineer and graphics designer
+            </motion.div>
             <div
-              className="flex ml-10  mt-5 h-80 items whitespace-nowrap"
+              className="flex ml-10 mt-5 h-80 whitespace-nowrap"
               ref={textContainerRef}
             >
               {characters.map((char, index) => (
@@ -188,12 +233,23 @@ export default function Home() {
               ))}
             </div>
           </div>
-          <div className="h-40 w-full -mt-60"></div>
+
+          {/* Centering the Image Properly */}
+          <div className="h-[400px] w-80 absolute top-[50%] left-[85%] transform -translate-x-1/2 -translate-y-1/2">
+            <Image
+              src="/yo.jpg"
+              width={800}
+              height={100}
+              alt="profile image"
+            />
+          </div>
         </div>
-        <div className="flex-1"></div>
       </section>
 
-      <section ref={projectSectionRef} className="flex flex-col gap-10 mx-16 -mt-5">
+      <section
+        ref={projectSectionRef}
+        className="flex flex-col gap-10 mx-16 -mt-5"
+      >
         <div className="text-2xl font-bold text-center">Projects</div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[0, 1, 2, 3].map((col) => (
@@ -218,9 +274,7 @@ export default function Home() {
         className="flex items-center h-screen mx-16 mt-10"
       >
         <div className="text-2xl font-bold text-center">Skills</div>
-        <div className="flex ">
-          <Earth />
-        </div>
+        <div className="flex ">{/* <Earth /> */}</div>
       </section>
     </main>
   );
