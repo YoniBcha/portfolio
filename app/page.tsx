@@ -68,16 +68,52 @@ const cardData = [
   },
 ];
 
-const MasonryCard = ({ title, description, height, controls, isInView }) => {
+
+const MasonryCard = ({ title, description, imageUrl, height, controls, isInView }) => {
   return (
     <motion.div
-      className={`bg-white rounded-lg shadow-md p-4 ${height}`}
+      className={`relative rounded-lg shadow-md overflow-hidden ${height}`}
       initial={{ opacity: 0, x: controls === "left" ? -100 : 100 }}
       animate={isInView ? { opacity: 1, x: 0 } : {}}
       transition={{ duration: 0.5, ease: "easeOut" }}
+      whileHover={{ scale: 1.05 }}
     >
-      <h3 className="text-lg font-semibold">{title}</h3>
-      <p className="text-sm text-gray-600">{description}</p>
+      {/* Image Section (90% of the card) */}
+      <div className="h-[90%] p-2">
+        <img
+          src={imageUrl}
+          alt={title}
+          className="w-full h-full object-cover rounded-t-lg"
+        />
+      </div>
+
+      {/* Bottom Section (10% of the card) */}
+      <div className="absolute bottom-0 left-0 right-0 h-[40%]">
+        {/* Gradient Background (visible only on hover) */}
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"
+        />
+
+        {/* Title (always visible at the bottom) */}
+        <motion.div
+          className="absolute bottom-0 left-0 right-0 p-4"
+          initial={{ y: 0 }}
+          whileHover={{ y: -50 }} // Move title upward on hover
+          transition={{ duration: 0.3 }}
+        >
+          <h3 className="text-lg font-semibold text-white">{title}</h3>
+        </motion.div>
+
+        {/* Description (hidden by default, visible on hover) */}
+        <motion.div
+          className="absolute bottom-0 left-0 right-0 p-4 opacity-0 hover:opacity-100 transition-opacity duration-300"
+          initial={{ y: 50 }}
+          whileHover={{ y: -20 }} // Move description upward on hover
+          transition={{ duration: 0.3 }}
+        >
+          <p className="text-sm text-white">{description}</p>
+        </motion.div>
+      </div>
     </motion.div>
   );
 };
@@ -205,7 +241,6 @@ export default function Home() {
       </g>
     </svg>
   );
-
   const ProjectIcon = () => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -598,7 +633,42 @@ export default function Home() {
 
   return (
     <main className="">
-      <section className="flex h-screen my-5 mx-3 md:mx-20 py-20">
+      <nav>
+        <motion.header
+          initial={{ y: -100, opacity: 0 }}
+          animate={
+            isHeaderVisible ? { y: 0, opacity: 1 } : { y: -100, opacity: 0 }
+          }
+          transition={{ duration: 0.4, ease: "easeInOut" }}
+          className="fixed top-3 border-t border-gray-200 shadow-xl py-1 rounded-xl w-[80%] ml-40 z-10 bg-white"
+        >
+          <nav className="flex justify-end items-center gap-7">
+            {sidebarLinks.map((link, index) => (
+              <a
+                key={index}
+                href="#"
+                className="flex items-center gap-2 text-black relative 
+                     hover:border-[#f46921] border-transparent border-b-2 
+                     transition-all duration-300 ease-in-out pb-1"
+              >
+                <span className="hover:text-[#f46921] tetx-xl font-semibold">
+                  {link.name}
+                </span>
+                <span
+                  className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#f46921] 
+                       transition-all duration-300 ease-in-out group-hover:w-full"
+                ></span>
+              </a>
+            ))}
+            <div className="flex items-center justify-center h-12 w-12 rounded-full bg-white"></div>
+          </nav>
+        </motion.header>
+      </nav>
+
+      <section
+        ref={homeSectionRef}
+        className="flex h-screen my-5 mx-3 md:mx-20 py-20"
+      >
         <div
           className={`sm:hidden md:block h-[90%] rounded-xl shadow-2xl p-2 ${
             isNavExtended ? "w-14 " : "w-48"
@@ -714,7 +784,7 @@ export default function Home() {
             I am a software engineer and graphics designer
           </motion.div>
           <div
-            className="flex pl-16 mt-5 h-80 whitespace-nowrap"
+            className="flex pl-28 mt-5 h-80 whitespace-nowrap"
             ref={textContainerRef}
           >
             {characters.map((char, index) => (
@@ -747,105 +817,74 @@ export default function Home() {
         </div>
       </section>
 
-      <motion.header
-        initial={{ y: -100, opacity: 0 }}
-        animate={
-          isHeaderVisible ? { y: 0, opacity: 1 } : { y: -100, opacity: 0 }
-        }
-        transition={{ duration: 0.4, ease: "easeInOut" }}
-        className="fixed top-0 left-[160px] right-[160px] z-50 shadow-md h-20 flex items-center"
-        style={{
-          background:
-            "linear-gradient(to bottom, rgba(102, 126, 234, 1), rgba(118, 75, 162, 0))",
-          maskImage:
-            "linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.6))",
-        }}
-      >
-        <nav className="flex justify-end w-full items-center gap-6 pr-6">
-          {["Home", "Project", "Skills", "About", "Contact Me"].map(
-            (link, index) => (
-              <a
-                key={index}
-                href="#"
-                className="text-white hover:text-gray-200"
-              >
-                {link}
-              </a>
-            )
-          )}
-          <div className="flex items-center justify-center h-12 w-12 rounded-full bg-white"></div>
-        </nav>
-      </motion.header>
-
-      <section ref={homeSectionRef} className="h-screen relative">
-        <div className="flex justify-end mt-10">
-          <div className="flex items-center justify-center h-12 w-12 rounded-full bg-gray-500"></div>
-        </div>
-        <div className="flex items-center relative overflow-visible pt-28">
-          <div className="absolute left-5 h-full bg-red-500 w-20"></div>
-          <div className="">
-            <div className="absolute left-1/2 top-[40%] transform -translate-x-1/2 -translate-y-1/4">
-              {[
-                "Home",
-                "Project",
-                "Skills",
-                "About",
-                "Contact me",
-                "Social media accounts",
-              ].map((link, index) => (
-                <div
-                  key={index}
-                  className="absolute w-28 pb-7 text-center"
-                  style={{
-                    transform: `rotate(${
-                      (180 / 6) * index - 90
-                    }deg) translateX(160px) rotate(${-(
-                      (180 / 6) * index -
-                      90
-                    )}deg)`,
-                  }}
-                >
-                  {link}
-                </div>
-              ))}
-            </div>
-            <motion.div
-              className="mt-14 ml-20 text-3xl"
-              initial={{ scale: 0, opacity: 0 }}
-              animate={textBlowUpControls}
-            >
-              I am a software engineer and graphics designer
-            </motion.div>
-            <div
-              className="flex ml-10 mt-5 h-80 whitespace-nowrap"
-              ref={textContainerRef}
-            >
-              {characters.map((char, index) => (
-                <motion.span
-                  key={index}
-                  custom={index}
-                  initial={{ x: 0, y: "-100vh", opacity: 0, rotate: -360 }}
-                  animate={textControls}
-                  className="text-5xl font-bold"
-                >
-                  {char}
-                </motion.span>
-              ))}
-            </div>
+      <section className="flex justify-between items-center border py-1 px-2 mx-3 md:mx-20 rounded-xl">
+        <div className="">
+          <div className="text-xl font-bold text-[#f46921]">
+            Social media links{" "}
           </div>
-
-          {/* Centering the Image Properly */}
-          <div className="h-[400px] w-80 absolute top-[50%] left-[85%] transform -translate-x-1/2 -translate-y-1/2">
-            <Image src="/yo.jpg" width={800} height={100} alt="profile image" />
+          <div className="text-sm text-gray-400">
+            for more about me and information
+          </div>
+        </div>
+        <div className="flex items-center gap-5">
+          <div className="relative h-8 w-8 overflow-hidden">
+            <Image
+              src="/socialmedia/i.png"
+              alt="profile image"
+              layout="fill"
+              objectFit="cover"
+            />
+          </div>
+          <div className="relative h-8 w-8 overflow-hidden">
+            <Image
+              src="/socialmedia/te.svg"
+              alt="profile image"
+              layout="fill"
+              objectFit="cover"
+            />
+          </div>
+          <div className="relative h-8 w-8 overflow-hidden">
+            <Image
+              src="/socialmedia/y.png"
+              alt="profile image"
+              layout="fill"
+              objectFit="cover"
+            />
+          </div>
+          <div className="relative h-8 w-8 overflow-hidden">
+            <Image
+              src="/socialmedia/l.svg"
+              alt="profile image"
+              layout="fill"
+              objectFit="cover"
+            />
+          </div>
+          <div className="relative h-8 w-8 overflow-hidden">
+            <Image
+              src="/socialmedia/f.png"
+              alt="profile image"
+              layout="fill"
+              objectFit="cover"
+            />
+          </div>
+          <div className="relative h-8 w-8 overflow-hidden">
+            <Image
+              src="/socialmedia/t.svg"
+              alt="profile image"
+              layout="fill"
+              objectFit="cover"
+            />
           </div>
         </div>
       </section>
 
       <section
         ref={projectSectionRef}
-        className="flex flex-col gap-10 mx-16 -mt-5"
+        className="flex flex-col gap-10 px-20 mt-16 py-10"
       >
-        <div className="text-2xl font-bold text-center">Projects</div>
+        <div className="text-3xl text-[#f46921] font-bold text-center">
+          Projects
+        </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[0, 1, 2, 3].map((col) => (
             <div key={col} className="grid gap-4">
@@ -856,7 +895,7 @@ export default function Home() {
                     key={index}
                     {...card}
                     controls={col % 2 === 0 ? "left" : "right"}
-                    isInView={isProjectInView} // Pass the isInView state to each card
+                    isInView={isProjectInView}
                   />
                 ))}
             </div>
