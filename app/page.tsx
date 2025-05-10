@@ -10,66 +10,87 @@ const cardData = [
     title: "Card Title 1",
     description: "This is a description for card 1.",
     height: "h-80",
+    imageUrl: "/images/card1.jpg",
   },
   {
     title: "Card Title 2",
     description: "This is a description for card 2.",
     height: "h-60",
+    imageUrl: "/images/card2.jpg",
   },
   {
     title: "Card Title 3",
     description: "This is a description for card 3.",
     height: "h-40",
+    imageUrl: "/images/card3.jpg",
   },
   {
     title: "Card Title 4",
     description: "This is a description for card 4.",
     height: "h-72",
+    imageUrl: "/images/card4.jpg",
   },
   {
     title: "Card Title 5",
     description: "This is a description for card 5.",
     height: "h-64",
+    imageUrl: "/images/card5.jpg",
   },
   {
     title: "Card Title 6",
     description: "This is a description for card 6.",
     height: "h-56",
+    imageUrl: "/images/card6.jpg",
   },
   {
     title: "Card Title 7",
     description: "This is a description for card 7.",
     height: "h-48",
+    imageUrl: "/images/card7.jpg",
   },
   {
     title: "Card Title 8",
     description: "This is a description for card 8.",
     height: "h-80",
+    imageUrl: "/images/card8.jpg",
   },
   {
     title: "Card Title 9",
     description: "This is a description for card 9.",
     height: "h-60",
+    imageUrl: "/images/card9.jpg",
   },
   {
     title: "Card Title 10",
     description: "This is a description for card 10.",
     height: "h-72",
+    imageUrl: "/images/card10.jpg",
   },
   {
     title: "Card Title 11",
     description: "This is a description for card 11.",
     height: "h-64",
+    imageUrl: "/images/card11.jpg",
   },
   {
     title: "Card Title 12",
     description: "This is a description for card 12.",
     height: "h-56",
+    imageUrl: "/images/card12.jpg",
   },
 ];
 
 
-const MasonryCard = ({ title, description, imageUrl, height, controls, isInView }) => {
+interface MasonryCardProps {
+  title: string;
+  description: string;
+  imageUrl: string;
+  height: string;
+  controls: string;
+  isInView: boolean;
+}
+
+const MasonryCard = ({ title, description, imageUrl, height, controls, isInView }: MasonryCardProps) => {
   return (
     <motion.div
       className={`relative rounded-lg shadow-md overflow-hidden ${height}`}
@@ -80,10 +101,12 @@ const MasonryCard = ({ title, description, imageUrl, height, controls, isInView 
     >
       {/* Image Section (90% of the card) */}
       <div className="h-[90%] p-2">
-        <img
+        <Image
           src={imageUrl}
           alt={title}
-          className="w-full h-full object-cover rounded-t-lg"
+          layout="fill"
+          objectFit="cover"
+          className="rounded-t-lg"
         />
       </div>
 
@@ -908,7 +931,7 @@ export default function Home() {
         className="flex items-center h-screen mx-16 mt-10"
       >
         <div className="text-2xl font-bold text-center">Skills</div>
-        <div className="flex ">{/* <Earth /> */}</div>
+        <div className="flex "><Earth /></div>
       </section>
     </main>
   );

@@ -20,20 +20,31 @@ const Earth: React.FC = () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
     mountRef.current.appendChild(renderer.domElement);
 
-    const generateCirclePoints = (radius, center, normal, segments = 64) => {
-      const points = [];
+    interface CirclePoint {
+      x: number;
+      y: number;
+      z: number;
+    }
+
+    const generateCirclePoints = (
+      radius: number,
+      center: THREE.Vector3,
+      normal: THREE.Vector3,
+      segments: number = 64
+    ): CirclePoint[] => {
+      const points: CirclePoint[] = [];
       const axis = new THREE.Vector3(0, 1, 0);
       const quaternion = new THREE.Quaternion().setFromUnitVectors(
-        axis,
-        normal.clone().normalize()
+      axis,
+      normal.clone().normalize()
       );
 
       for (let i = 0; i <= segments; i++) {
-        const angle = (i / segments) * Math.PI * 2;
-        const x = Math.cos(angle) * radius;
-        const y = Math.sin(angle) * radius;
-        const point = new THREE.Vector3(x, y, 0).applyQuaternion(quaternion).add(center);
-        points.push(point);
+      const angle = (i / segments) * Math.PI * 2;
+      const x = Math.cos(angle) * radius;
+      const y = Math.sin(angle) * radius;
+      const point = new THREE.Vector3(x, y, 0).applyQuaternion(quaternion).add(center);
+      points.push({ x: point.x, y: point.y, z: point.z });
       }
 
       return points;
