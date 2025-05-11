@@ -172,7 +172,7 @@ const Earth: React.FC = () => {
   return (
     <div
       ref={mountRef}
-      className="w-full h-screen rounded-full overflow-hidden cursor-pointer"
+      className="rounded-full overflow-hidden cursor-pointer"
     />
   );
 };
