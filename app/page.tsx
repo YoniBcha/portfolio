@@ -498,7 +498,7 @@ export default function Home() {
         <div className="text-3xl text-[#f46921] font-bold text-center">
           Projects
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 h-screen">
           {[0, 1, 2, 3].map((col) => (
             <div key={col} className="grid gap-4">
               {cardData
@@ -518,7 +518,7 @@ export default function Home() {
 
       <section
         ref={skillsSectionRef}
-        className="flex flex-col md:flex-row items-center justify-center py-20 px-5 md:px-20 bg-white/80 backdrop-blur-sm"
+        className="flex flex-col md:flex-row items-center justify-center py-20 px-5 md:px-20 bg-white backdrop-blur-sm"
       >
         <div className="text-3xl text-[#f46921] font-bold text-center mb-10 md:mb-0 md:mr-20">
           Skills
